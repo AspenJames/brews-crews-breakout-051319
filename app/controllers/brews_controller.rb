@@ -19,6 +19,9 @@ class BrewsController < ApplicationController
 		if @brew.valid?
 			@brew.save
 			redirect_to brew_path(@brew)
+		else
+			# flash[:message] = 'you messed up'
+			render :new
 		end
 	end
 

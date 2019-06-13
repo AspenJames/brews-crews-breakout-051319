@@ -1,4 +1,7 @@
 <%# brews/new %>
+<%# if flash[:message] %>
+	<%#= flash[:message] %>
+<%# end %>
 
 <%= form_for @brew do |f| %>
 	<%= f.label :blend_name %>
