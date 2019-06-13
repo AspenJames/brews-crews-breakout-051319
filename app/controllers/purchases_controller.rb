@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
-  def index
+  def index #get /purchases
   end
 
 	def new
@@ -7,7 +7,15 @@ class PurchasesController < ApplicationController
 		@brews = Brew.all
   end
 
-  def create
+	def create #post /purchases
+		@purchase = Purchase.new(purchase_params)
+
+		if @purchase.valid?
+			@purchase.save
+			redirect_to purchase_path(@purchase)
+		else
+			render :new
+		end
   end
 
   def show
@@ -20,5 +28,10 @@ class PurchasesController < ApplicationController
   end
 
   def delete
-  end
+	end
+
+	private
+	def purchase_params
+		params.require(:purchase).permit(:customer_name, :price, :brew_id)
+	end
 end
