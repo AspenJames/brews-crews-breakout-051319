@@ -13,9 +13,22 @@ class BrewsController < ApplicationController
 		@brew = Brew.new
 	end
 
+	def create
+		@brew = Brew.new(brew_params)
+
+		if @brew.valid?
+			@brew.save
+			redirect_to brew_path(@brew)
+		end
+	end
+
 	private
 	def set_brew
 		@brew = Brew.find(params[:id])
+	end
+
+	def brew_params
+		params.require(:brew).permit(:blend_name, :origin, :notes, :strength)
 	end
 
 end
